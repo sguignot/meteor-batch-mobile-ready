@@ -1,0 +1,30 @@
+template(name='queries_queue')
+	.panel.panel-default
+		.panel-heading Queries Queue
+		table.table
+			thead
+				tr
+					th Time
+					th URL
+					th Progression
+					th Pass
+					th Score
+			tbody
+				each queriesQueue
+					+queries_queue_item
+
+template(name='queries_queue_item')
+	tr(class="#{jobRowClass}")
+		td #{displayCreated}
+		td #{url}
+		td
+			.progress
+				.progress-bar(role='progressbar', aria-valuenow="#{progressPercent}", aria-valuemin='0', aria-valuemax='100', style="width: #{progressPercent}%;") #{progressPercent}%
+		td
+			if passDefined
+				if pass
+					span(style='color:green') ✔
+				else
+					span(style='color:red') ✘
+		td
+			span.badge #{score}

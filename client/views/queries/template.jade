@@ -1,0 +1,14 @@
+template(name='queries')
+	+reactiveTable settings=settings
+
+template(name='query_item_url')
+	a(href='https://www.google.com/webmasters/tools/mobile-friendly/?url=#{url}' target='_blank') #{url}
+
+template(name='query_item_pass')
+	if pass
+		span(style='color:green') ✔
+	else
+		span(style='color:red') ✘
+
+template(name='query_item_score')
+	span.badge(data-toggle='popover' data-trigger='hover' data-content='#{brokenRules}' data-html='true' data-placement='left') #{score}
