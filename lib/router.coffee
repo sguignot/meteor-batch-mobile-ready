@@ -13,22 +13,14 @@ Router.map ->
 			if Meteor.user()
 				return [
 					Meteor.subscribe 'queriesQueue'
-					Meteor.subscribe 'queries'
 				]
 			else
 				return []
 		data:
 			queriesQueue: ->
-				QueriesQueue.find({}, {sort: {status: -1, created: -1}, limit: 100}).fetch()
+				QueriesQueue.find({}, {sort: {created: -1}}).fetch()
 				
-	@route 'report',
-		waitOn: ->
-			if Meteor.user()
-				return [
-					Meteor.subscribe 'successedQueries'
-				]
-			else
-				return []
+	@route 'report'
 
 	@route 'export.csv', (->
 		exportCSV @request.query.q, @response

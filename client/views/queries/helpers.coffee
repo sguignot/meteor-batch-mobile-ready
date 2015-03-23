@@ -1,16 +1,17 @@
 Template.queries.helpers
 	settings: ->
 		{
-			collection: Queries
-			rowsPerPage: 100
+			collection: 'rtSuccessedQueries'
+			rowsPerPage: 10
 			showFilter: true
 			useFontAwesome: true
 			showNavigation: 'auto'
 			fields: [
-				{ key: 'displayCreatedAt', label: 'When' }
+				{ key: 'updatedAt', label: 'When', fn: (value, object) -> moment(value).fromNow() }
 				{ key: 'url', label: 'URL', tmpl: Template.query_item_url }
 				{ key: 'pass', label: 'Pass', tmpl: Template.query_item_pass }
 				{ key: 'score', label: 'Score', tmpl: Template.query_item_score, sort: 'ascending' }
+				{ key: 'response', hidden: true }
 			]
 		}
 

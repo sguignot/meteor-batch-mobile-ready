@@ -1,16 +1,16 @@
-@QueriesQueue = new JobCollection 'queries_queue', { idGeneration: 'MONGO' }
+@QueriesQueue = new JobCollection 'queries_queue', idGeneration: 'MONGO'
 
 QueriesQueue.helpers(
 	displayCreated: ->
 		moment(@created).fromNow()
 	url: ->
-		Queries.findOne(@data.queryId).url
+		@data.url
 	pass: ->
-		Queries.findOne(@data.queryId).pass
+		@data.pass
 	passDefined: ->
-		Queries.findOne(@data.queryId).pass?
+		@data.pass?
 	score: ->
-		Queries.findOne(@data.queryId).score
+		@data.score
 	jobRowClass: ->
 		switch @status
 			when 'running' then 'warning'

@@ -23,7 +23,7 @@
 		return
 
 	stream.write ['URL', 'Pass', 'Score', 'Updated']
-	queries = Queries.find({owner: userId, score: {$exists: true}}, {sort: {url: 1, updatedAt: -1}})
+	queries = Queries.find({owner: userId, score: {$exists: true}}, {sort: {updatedAt: -1}})
 	urls = {} # used to output only the latest score for each url
 	queries.forEach (query) ->
 		stream.write query unless urls[query.url]

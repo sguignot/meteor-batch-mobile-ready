@@ -35,7 +35,15 @@ Meteor.startup ->
 		pass = response.ruleGroups.USABILITY.pass
 		score = response.ruleGroups.USABILITY.score
 
-		Queries.update({ _id: query._id }, { $set: { response: response, pass: pass, score: score }})
+		Queries.update({ _id: query._id }, $set:
+			response: response
+			pass: pass
+			score: score
+		)
+		QueriesQueue.update({ _id: job._doc._id }, $set: 
+			'data.pass': pass
+			'data.score': score
+		)
 		console.log "Updated query #{query._id} with response: #{url} pass=#{pass} score=#{score}"
 
 		job.done()

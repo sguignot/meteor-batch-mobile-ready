@@ -21,9 +21,11 @@ Queries.attachSchema new SimpleSchema(
 	pass:
 		type: Boolean
 		optional: true
+		index: 1
 	score:
 		type: Number
 		optional: true
+		index: 1
 	owner:
 		type: String
 		index: 1
@@ -38,16 +40,13 @@ Queries.attachSchema new SimpleSchema(
 					value: user._id
 )
 
-Queries.helpers(
-	displayCreatedAt: ->
-		return moment(@createdAt).fromNow()
-)
 
 if Meteor.isServer
 	Queries.after.insert (userId, doc) ->
 		job = QueriesQueue.createJob('mobileReadyJob',
 			owner: userId
 			queryId: doc._id
+			url: doc.url
 		)
 		job.retry
 			retries: 3
